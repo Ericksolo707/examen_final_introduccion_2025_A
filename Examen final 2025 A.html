@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Examen_final_2025_A</title>
+  <script src="https://unpkg.com/dexie@3/dist/dexie.js"></script>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif, sans-serif;
+      padding: 25px;
+    }
+    input {
+      margin: 6px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Erick Efrain Solorano Jimenez</h1>
+  <h2>Ericksolo707</h2>
+  <h3>Registrar Persona</h3>
+  <input type="text" id="nombre" placeholder="Nombre">
+  <input type="text" id="apellido" placeholder="Apellido">
+  <input type="number" id="anioNacimiento" placeholder="Año de Nacimiento">
+  <input type="number" id="mesdenacimiento" placeholder="Mes de nacimiento">
+  <button id="guardarBtn">Guardar</button>
+
+  <h4>Personas Registradas</h4>
+  <ul id="listaPersonas"></ul>
+
+  <script>
+    const db = new Dexie("Examen_final_2025_A");
+    db.version(1).stores({
+      personas: "++id, nombre, apellido, anioNacimiento, mesdenacimiento"
+    });
+
+    function esAñoBisiesto(año) {
+  if ((año % 4 === 0 && año % 100 !== 0) || año % 400 === 0) {
+    return true; // Es bisiesto
+  } else {
+    return false; // No es bisiesto
+  }
+function esMesPar(mes) {
+  return mes % 2 === 0;
+}
+
+    document.getElementById("guardarBtn").addEventListener("click", async () => }
+    const añoNacimiento = Document
+if (esAñoBisiesto(añoNacimiento)) {
+  console.log(`El año ${añoNacimiento} es bisiesto.`);
+} else {
+  console.log(`El año ${añoNacimiento} no es bisiesto.`);
+}
+let mesDeNacimiento = mesDeNacimiento;
+if (esMesPar(mesDeNacimiento)) {
+  console.log("El mes en que naciste (" + mesDeNacimiento + ") es par.");
+} else {
+  console.log("El mes en que naciste (" + mesDeNacimiento + ") es impar.");
+}
+    document.getElementById("guardarBtn").addEventListener("click", async () => {
+      const nombre = document.getElementById("nombre").value.trim();
+      const apellido = document.getElementById("apellido").value.trim();
+      const anioNacimiento = parseInt(document.getElementById("anioNacimiento").value);
+      const mesdenacimiento = parseInt(document.getElementById("mesdenacimiento").value);
+
+
+      if (nombre && apellido && !isNaN(anioNacimiento)) {
+        await db.personas.add({ nombre, apellido, anioNacimiento });
+        document.getElementById("nombre").value = "";
+        document.getElementById("apellido").value = "";
+        document.getElementById("anioNacimiento").value = "";
+        listarPersonas();
+      } else {
+        alert("Por favor completa todos los campos correctamente.");
+      }
+    });
+
+    
+    async function listarPersonas() {
+      const lista = document.getElementById("listaPersonas");
+      lista.innerHTML = "";
+      const personas = await db.personas.toArray();
+      personas.forEach(p => {
+        const esAñoBisiesto = calcularAñoBisiesto(p.añoNacimiento);
+        const mesDeNacimiento =(calcularmesdenacimiento);
+        const li = document.createElement("li");
+        li.textContent = `${p.nombre} ${p.apellido} - año: ${esAñoBisiesto} mes`;
+        lista.appendChild(li);
+      });
+    }
+
+    
+    listarPersonas();
+  </script>
+</body>
+</html>
